@@ -1,7 +1,33 @@
 const express = require('express');
 const { body, validationResult } = require('express-validator');
+const { MongoClient, ServerApiVersion } = require('mongodb');
 const app = express();
 app.use(express.json());
+username = 'amitkumar';
+password = 'sKep0POThHWLf096';
+const uri = `mongodb+srv://${username}:${password}@fame-club.js3bszr.mongodb.net/?retryWrites=true&w=majority`;
+
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: false,
+    deprecationErrors: true,
+  }
+});
+
+async function connectToDatabase() {
+  try {
+    console.log('trying to reach');
+    await client.connect();
+    console.log('Connected to MongoDB Atlas!');
+  } catch (err) {
+    console.log('error');
+    console.log(err);
+  }
+}
+
+connectToDatabase();
+
 
 app.post('/sign-up',[
   // Validate the 'name' field as a string with at least 2 characters
