@@ -3,8 +3,8 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const cors = require('cors');
 const dotenv = require('dotenv');
-
-const apiRoutes = require('./routes/api/users');
+require('./routes/index');
+// const apiRoutes = require('./routes/api/users');
 // const webRoutes = require('./routes/web/');
 
 dotenv.config();
@@ -18,7 +18,9 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-app.use('/api', apiRoutes);
+// app.use('/api', apiRoutes);
+
+// don't have web routes for now 
 // app.use('/', webRoutes);
 
 // Error handling

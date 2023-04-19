@@ -3,6 +3,7 @@ const router = express.Router();
 
 // Route handlers for /api/users
 router.get('/', (req, res) => {
+  res.status(200).send({data: 'test'});
   // Get all users
 });
 
@@ -10,7 +11,9 @@ router.get('/:id', (req, res) => {
   // Get user by ID
 });
 
-router.post('/', (req, res) => {
+router.post('/adduser', (req, res) => {
+
+  res.status(200).send({data: req.body});
   // Create a new user
 });
 
