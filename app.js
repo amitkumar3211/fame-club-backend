@@ -3,9 +3,13 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const cors = require('cors');
 const dotenv = require('dotenv');
-
-const apiRoutes = require('./routes/api/users');
+const router = require('./routes/index.js');
+// const apiRoutes = require('./routes/api/users');
 // const webRoutes = require('./routes/web/');
+
+
+// coneection with database here 
+const { MongoClient, ServerApiVersion } = require('mongodb');
 
 dotenv.config();
 
@@ -17,8 +21,10 @@ app.use(morgan('combined'));
 app.use(cors());
 app.use(express.json());
 
-// Routes
-app.use('/api', apiRoutes);
+// Using Register Routes Here 
+ app.use(router);
+
+// don't have web routes for now 
 // app.use('/', webRoutes);
 
 // Error handling
