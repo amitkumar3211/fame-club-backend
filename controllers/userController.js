@@ -1,13 +1,19 @@
 // userController.js
 
+const client = require('../config/index');
+
 const User = require('../models/user');
 
 exports.createUser = async (req, res, next) => {
+
   try {
-    const { name, email, password } = req.body;
-    const user = new User({ name, email, password });
-    await user.save();
-    res.json(user);
+   
+    const user = req.body;
+    const db = client.db(); // get a reference to your database
+    const collection = db.collection('users'); // get a reference to the "users" collection
+    const result = await collection.insertOne(user); 
+
+    res.json(result);
   } catch (error) {
     next(error);
   }

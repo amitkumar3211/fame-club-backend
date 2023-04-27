@@ -7,6 +7,10 @@ const router = require('./routes/index.js');
 // const apiRoutes = require('./routes/api/users');
 // const webRoutes = require('./routes/web/');
 
+
+// coneection with database here 
+const { MongoClient, ServerApiVersion } = require('mongodb');
+
 dotenv.config();
 
 const app = express();
