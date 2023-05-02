@@ -3,17 +3,27 @@
 const client = require('../config/index');
 
 const User = require('../models/user');
-
+const jwt = require('jsonwebtoken');
 exports.createUser = async (req, res, next) => {
 
   try {
-   
-    const user = req.body;
-    const db = client.db(); // get a reference to your database
-    const collection = db.collection('users'); // get a reference to the "users" collection
-    const result = await collection.insertOne(user); 
 
-    res.json(result);
+    const { name, email, password } = req.body;
+    const existingUser = await User.findOne({ email });
+    console.log(existingUser);
+    if(existingUser){
+      return res.status(400).json({ error: 'User already exists' });
+    }
+
+    const user = new User({ name, email, password });
+    await user.save();
+    console.log(user);
+      // Generate JWT token
+      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
+
+      // Send token back to client
+      res.status(200).json({ token });
+    
   } catch (error) {
     next(error);
   }

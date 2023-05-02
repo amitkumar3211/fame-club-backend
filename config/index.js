@@ -19,18 +19,31 @@
 //       throw new Error(`Unknown environment: ${env}`);
 //   }
 // }
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const mongoose = require('mongoose');
 username = 'amitkumar';
 password = 'sKep0POThHWLf096';
 const uri = `mongodb+srv://${username}:${password}@fame-club.js3bszr.mongodb.net/?retryWrites=true&w=majority`;
 
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: false,
-    deprecationErrors: true,
-  }
+// const client = new MongoClient(uri, {
+//   serverApi: {
+//     version: ServerApiVersion.v1,
+//     strict: false,
+//     deprecationErrors: true,
+//   }
+// });
+
+mongoose.connect(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+
+  serverSelectionTimeoutMS: 5000, // how long to wait before timing out a connection attempt
+  socketTimeoutMS: 45000, // how long to wait before timing out a socket connection
+  connectTimeoutMS: 5000 // how long to wait before timing out a connection attempt
+}).then(() => {
+  console.log('Connected to MongoDB Atlas');
+}).catch((err) => {
+  console.error(err);
 });
 
 
-module.exports = client;
+// module.exports = client;
